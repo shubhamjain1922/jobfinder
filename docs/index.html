@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" href="icon.ico">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=5"/>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+  
+  <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
+
+  <title>Job Finder</title>
+
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background:rgba(246, 247, 251, 1);
+    }
+
+    .wrapper {
+      padding: 10px;
+      margin-top: 20px;
+    }
+
+    .githead {
+      font-weight: 700;
+    }
+
+    .jobhead {
+      font-weight: 200;
+    }
+
+    .jumbotron {
+      margin: 30px 0px;
+      height: 138px;
+      width: 100%;
+      background: url(jumbo.png);
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .searchbox {
+      background: white;
+      border-radius: 5px;
+      padding: 10px;
+      width: 65%;
+    }
+
+    .searchterm {
+      width: 75%;
+      border: none;
+      padding: 5px;
+    }
+
+    .searchbut {
+      width: 20%;
+      padding: 12px;
+    }
+    *:focus {
+      outline: none;
+    }
+
+    .leftpanel {
+      padding: 10px;
+    }
+
+    .rightpanel {
+    }
+
+    .lochead {
+      color: rgba(185, 189, 207, 1);
+      font-weight: bold;
+    }
+
+    .locbox {
+      width: 90%;
+      background: white;
+      padding: 10px;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+      border-radius: 4px;
+      color: rgba(185, 189, 207, 1);
+      margin: 20px 0;
+    }
+
+    .locterm {
+      border:none;
+      padding: 5px;
+      margin-left: 5px;
+      width: 80%;
+    }
+
+    .locbut {
+      width: 90%;
+      margin: auto;
+      padding: 10px;
+      font-size: 1.1em;
+    }
+
+    .loc {
+      font-size: 1em;
+    }
+
+    .category {
+      margin-left: 10px;
+    }
+
+    .catname {
+      margin: 5px 0;
+      cursor: pointer;
+    }
+
+    .catinput {
+      cursor: pointer;
+    }
+
+    .companybox {
+      width: 100%;
+      background: white;
+      margin: 20px auto;
+      height: 150px;
+      padding: 10px;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+      border-radius: 5px;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .compimg {
+      width: 120px;
+      height: 120px;
+      border-radius: 4px;
+      float: left;
+    } 
+
+    .compimg img {
+      width: 100%;
+      height: 100%;
+      border-radius: 4px;
+    }
+
+    .jobdet {
+      margin-left: 20px;
+      float: left;
+      text-transform: capitalize;
+    }
+
+    .comppos {
+      margin-bottom: 8px;
+      font-size: 1.2em;
+    }
+
+    .jobtype {
+      color: rgba(51, 70, 128, 1);
+      border: 1px solid #334680;
+      border-radius: 4px;
+      padding: 5px 10px;
+      font-size: 0.9em;
+      font-weight: bold;
+      text-align: center;
+      width: 100px;
+      text-transform: uppercase;
+    }
+
+    .jobpostdet {
+      color: rgba(185, 189, 207, 1);
+      bottom: 0;
+      position: absolute;
+      right: 0;
+      padding: 5px 10px;
+      font-size: 0.9em;
+    }
+
+    .jobloc {
+      margin-right: 15px;
+    }
+
+    .pagebox {
+      float: right;
+      height: 40px;
+      padding: 5px;
+    }
+
+    .leftarrowbox,.rightarrowbox,.nobox {
+      background: white;
+      border-radius: 5px;
+      height: 30px;
+      width: 30px;
+      border: 1px solid #334680;
+      margin: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      float: left;
+      cursor: pointer;
+      font-size: 0.9em;
+      color: #334680;
+    }
+    p {
+      margin-bottom: 0;
+    }
+
+    .nowrapper {
+      float: left;
+    }
+
+    .active:hover,.nobox:hover {
+      background: #334680;
+      color: white;
+    }
+
+    .selected {
+      background: #334680;
+      color: white;
+      animation: click 0.3s 1 linear;
+    }
+
+    .disabled {
+      border: 1px solid rgba(185, 189, 207, 1);
+      color: rgba(185, 189, 207, 1);
+      cursor: default;
+    }
+
+    .active {
+      cursor: pointer;
+      border: 1px solid #334680;
+      color: #334680;
+    }
+
+    .footer {
+      color: #B9BDCF;
+      font-size: 0.9em;
+    }
+
+    @keyframes click {
+      0% {
+        background: white;
+        color: #334680;
+      }
+      100% {
+        background: #334680;
+        color: white;
+      }
+    }
+
+    @media (max-width: 991px){
+      .searchterm {
+        width: 60%;
+      }
+      .searchbut {
+        width: 30%;
+      }
+      .companybox {
+        height: 170px;
+      }
+      .comppos {
+        font-size: 0.9em;
+      }
+    }
+
+
+  </style>
+</head>
+<body>
+
+  <div class="container wrapper">
+    <h2><span class="githead">Job</span> <span class="jobhead">Finder</span></h2>
+
+    <div class="jumbotron">
+      <div class="searchbox">
+        <i class="fas fa-briefcase"></i>
+        <input class="searchterm" type="text" name="searchterm" placeholder="Company Name">
+        <button type="button" class="btn btn-primary searchbut">Search</button>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="leftpanel col-md-4">  <!-- leftpanel -->
+          <h4 class="lochead">Category</h4>
+          <div class="locbox">
+            <i class="fas fa-briefcase"></i>
+            <input class="locterm" type="text" name="locterm" placeholder="Search">
+          </div>
+          <form class="loc"></form>
+        </div>
+
+        <div class="rightpanel col-md-8">  <!-- rightpanel -->
+          <div class="companywrapper"></div> <!-- job posting -->
+          <div class="pagebox">  <!-- page number -->
+            <div class="leftarrowbox">
+              <i class="fas fa-angle-left arrow"></i>
+            </div>
+            <div class="nowrapper"></div>
+            <div class="rightarrowbox">
+              <i class="fas fa-angle-right arrow"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer">Copyright ©&nbsp;Shubham Jain&nbsp;</div>
+  </div>
+
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+
+    var pgno=1;
+    var v;
+
+    //getting categories
+    getval();
+    async function getval() {
+      var res=await axios.get("https://remotive.io/api/remote-jobs/categories");
+      var x = res.data.jobs;
+      showcategories(x)
+    }
+
+    //displaying categories
+    function showcategories(x) {
+      for(var i=0;i<x.length;i++)
+      {
+        var t=x[i];
+        $(".loc").append('<div class="catbox"><input type="checkbox" class="catinput" id="'+t.name+'" name="cat"><label class="catname" id="'+t.name+'" for="'+t.name+'"><span class="category">'+t.name+'</span></label></div>')
+      }
+    }
+
+    //getting jobs
+    getdata();
+    async function getdata() {
+      var res=await axios.get("https://remotive.io/api/remote-jobs?limit=20");
+      v = res.data.jobs;
+      showdata(v)
+      pagenodata(v);
+    }
+
+    //displaying jobs
+    function showdata(x){
+      $(".companywrapper").empty();
+      var start=pgno*5-5;
+      for(var i=start;i<start+5;i++)
+      {
+        var t = x[i];
+        $(".companywrapper").append('<div class="companybox" id="'+t.id+'"><div class="compimg"><img src="'+t.company_logo_url+'" alt="logo"></div><div class="jobdet"><h4 class="compname">'+t.company_name+'</h4><p class="comppos">'+t.title+'</p><div class="jobtype">'+t.job_type+'</div></div><div class="jobpostdet"><i class="fas fa-globe-americas"></i> <span class="jobloc">'+t.candidate_required_location+'</span></div></div>')
+      }
+    }
+
+    //displaying page numbers
+    function pagenodata(m){
+      $(".nowrapper").empty();
+      pagesize = Math.ceil(m.length/5);
+      for(var i=1;i<=pagesize;i++)
+      {
+        $(".nowrapper").append('<div class="'+i+' nobox"><p>'+i+'</p></div>');
+      }
+      $("."+1).addClass("selected");
+      $(".leftarrowbox").addClass("disabled");
+      $(".rightarrowbox").addClass("active");
+    }
+
+    //when click on page number
+    $(".pagebox").on('click','.nobox',function(){
+      $(".nobox").removeClass("selected");
+      $(this).addClass("selected");
+      var t = $(this).attr("class").split(" ")[0];
+      checkleft(t);
+      checkright(t);
+      pgno=t;
+      showdata(v);
+    })
+
+    //when click on left arrow of page number
+    $(".pagebox").on('click','.leftarrowbox',function(){
+      var temp= $(".selected").attr("class").split(" ")[0];
+      if(temp!=1){
+        $("."+temp).removeClass("selected");
+        temp-=1;
+        pgno=temp;
+        $("."+temp).addClass("selected");
+        checkleft(temp);
+        checkright(temp);
+      }
+      showdata(v);
+    })
+
+    //when click on right arrow of page number
+    $(".pagebox").on('click','.rightarrowbox',function(){
+      var a= $(".selected").attr("class").split(" ")[0];
+      if(a!=pagesize){
+        $("."+a).removeClass("selected");
+        var j =parseInt(a);
+        j=j+1;
+        a=j;
+        pgno=j;
+        $("."+a).addClass("selected");
+        checkleft(a);
+        checkright(a);
+      }
+      showdata(v);
+    })
+
+    //checking if left arrow should be disabled or not
+    function checkleft(t) {
+      if(t>1)
+      {
+        $(".leftarrowbox").removeClass("disabled");
+        $(".leftarrowbox").addClass("active");
+      }
+      else
+      {
+        $(".leftarrowbox").addClass("disabled");
+        $(".leftarrowbox").removeClass("active");
+      }
+    }
+
+    //checking if right arrow should be disabled or not
+    function checkright(t) {
+      if(t<pagesize)
+      {
+        $(".rightarrowbox").removeClass("disabled");
+        $(".rightarrowbox").addClass("active");
+      }
+      else
+      {
+        $(".rightarrowbox").addClass("disabled");
+        $(".rightarrowbox").removeClass("active");
+      }
+    }
+
+    let z_arry = [];
+    var count =0;
+
+    //if clicked any category
+    $(".loc").on('click','.catinput',function(){
+      var z = $(this).attr("id");
+      if($(this).parent().hasClass("catselected")) //if removed any category
+      {
+        $(this).parent().removeClass("catselected");
+        for(var i=0;i<z_arry.length;i++)
+        {
+          if(z_arry[i]==z)
+            z_arry.splice(i,1);
+        }
+        catadd(z_arry);
+        count--;
+        if(count==0)
+          getdata();
+      }
+      else   //if chosen any category
+      {
+        $(this).parent().addClass("catselected");
+        z_arry[count]=z;
+        count++;
+        catadd(z_arry);
+      }
+    })
+
+    //getting jobs for categories
+    async function catadd(z_arry){
+      for(let i=0;i<z_arry.length;i++){
+        const URL = "https://remotive.io/api/remote-jobs?limit=20"
+        var res=await axios.get(URL+ "&category="+z_arry[i]+"");
+        var t = res.data.jobs;
+        v=t;
+        showdata(t)
+        pagenodata(t);
+
+      }
+    }
+
+    //if input any category
+    $(".locterm").on('keypress',function(e) {
+      if(e.which == 13) {
+        var z=[];
+        z[0] = $(this).val();
+        $(this).val("");
+        catadd(z);
+      }
+    });
+
+    //if input any companyname
+    $(".searchterm").on('keypress',function(e) {
+      if(e.which == 13) {
+       var z = $(this).val();
+       $(this).val("");
+       termadd(z);
+     }
+   });
+
+    //if search any companyname
+    $(".searchbut").on('click',function() {
+
+     var z = $(".searchterm").val();
+     $(".searchterm").val("");
+     termadd(z);
+   });
+
+    //getting jobs for companyname
+    async function termadd(z){
+      const URL = "https://remotive.io/api/remote-jobs?limit=20&company_name="
+      var res=await axios.get(URL+ ""+z+"");
+      var t = res.data.jobs;
+      v=t;
+      showdata(t);
+      pagenodata(t);
+    }
+
+    //if clicked any job
+    $(".companywrapper").on('click','.companybox',function(){
+      var temp = $(this).attr("id");
+      for(var i=0;i<v.length;i++)
+      {
+        if(temp == v[i].id)
+          localStorage.setItem("myJson", JSON.stringify(v[i])); //save data
+      }
+      window.location.href = "job.html";
+    })
+
+
+
+
+  </script>
+</body>
+</html>
