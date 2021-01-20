@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" href="icon.ico">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=5"/>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+  
+  <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
+
+  <title>Jobs</title>
+
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background:rgba(246, 247, 251, 1);
+    }
+
+    .wrapper {
+      padding: 10px;
+      margin-top: 20px;
+    }
+
+    .githead {
+      font-weight: 700;
+    }
+
+    .jobhead {
+      font-weight: 200;
+    }
+
+    .innerwrapper {
+      margin-top: 30px;
+    }
+
+    *:focus {
+      outline: none;
+    }
+
+    .backtext {
+      margin-left: 10px;
+    }
+
+    .backlink,.joblink {
+      text-decoration: none;
+      color: #1E86FF;
+      cursor: pointer;
+    }
+
+    .sampletext {
+      font-weight: bold;
+      color: #B9BDCF;
+      margin-top: 30px;
+      margin-bottom: 20px;
+    }
+
+    .innerwrapper {
+      padding: 0;
+    }
+
+    .jobtitle {
+      font-weight: bold;
+      font-size: 25px;
+      line-height: 30px;
+
+      color: #334680;
+      text-transform: capitalize;
+      display: inline-block;
+    }
+
+    .jobtype {
+      color: rgba(51, 70, 128, 1);
+      border: 1px solid #334680;
+      border-radius: 4px;
+      padding: 5px 10px;
+      font-size: 0.9em;
+      font-weight: bold;
+      text-align: center;
+      width: 100px;
+      text-transform: uppercase;
+      display: inline-block;
+      margin-left: 30px;
+    }
+
+    .jobdatebox {
+      font-size: 0.9em;
+      margin: 10px 0; 
+      color: #B9BDCF;
+    }
+
+    .compdet {
+      margin-top: 50px;
+    }
+
+    .imgbox {
+      height: 60px;
+      width: 60px;
+      float: left;
+      margin-right: 10px;
+    }
+
+    .imgbox img {
+      height: 100%;
+      width: 100%;
+    }
+
+    .compname {
+     font-weight: bold;
+     color: #334680;
+   }
+
+   .comploc {
+    display: inline-block;
+    margin-left: 7px;
+    color: #B9BDCF;
+  }
+
+  .description {
+    margin-top: 30px;
+    padding-right: 20px;
+  }
+
+  .extrabox {
+    margin-bottom: 50px;
+  }
+
+  .footer {
+    color: #B9BDCF;
+    font-size: 0.9em;
+  }
+
+</style>
+</head>
+<body>
+
+  <div class="container wrapper">
+    <h2><span class="githead">Job</span> <span class="jobhead">Finder</span></h2> <!-- heading -->
+
+    <div class="container-fluid innerwrapper">
+      <div class="row">
+        <div class="col-md-3 extrabox"> <!-- leftpanel -->
+          <div class="backbox">
+            <a href="index.html" class="backlink">
+              <i class="fas fa-long-arrow-alt-left"></i>
+              <span class="backtext">Back to search</span>
+            </a>
+          </div>
+          <p class="sampletext">HOW TO APPLY</p>
+          <a class="joblink">Click here to apply</a>
+        </div>
+        <div class="col-md-9">  <!-- rightpanel -->
+          <h3 class="jobtitle"></h3>
+          <div class="jobtype"></div>
+          <div class="jobdatebox">
+            <i class="far fa-clock"></i>
+            <span>Posted on : </span>
+            <span class="jobdate"></span>
+          </div>
+          <div class="compdet"></div> <!-- company details -->
+          <div class="description"></div> <!-- job description -->
+        </div>
+      </div>
+    </div>
+    <div class="footer">Copyright ©&nbsp;Shubham Jain&nbsp;</div>
+  </div>
+
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script>
+    var z=localStorage.getItem("myJson"); //getting job data
+    var data=JSON.parse(z);
+
+    //diplaying job info
+    $(".joblink").attr("href",data.url);
+    $(".jobtitle").html(data.title);
+    $(".jobtype").html(data.job_type);
+    $(".jobdate").html(data.publication_date.split("T")[0]);
+    $(".compdet").append("<div class='imgbox'><img src='"+data.company_logo_url+"' alt='logo'></div><h5 class='compname'>"+data.company_name+"</h5><i class='fas fa-globe-americas' style='color: #B9BDCF;'></i><p class='comploc'>"+data.candidate_required_location+"</p></div>");
+    $(".description").html(data.description);
+    $(".description").css("color","#334680");
+  </script>
+</body>
+</html>
