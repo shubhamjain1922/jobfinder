@@ -346,6 +346,8 @@
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script>
 
+    var leftarrow = document.querySelector(".leftarrowbox");
+    var rightarrow = document.querySelector(".rightarrowbox");
     var pgno=1;
     var v;
 
@@ -362,7 +364,7 @@
       for(var i=0;i<x.length;i++)
       {
         var t=x[i];
-        $(".loc").append('<div class="catbox"><input type="checkbox" class="catinput" id="'+t.name+'" name="cat"><label class="catname" id="'+t.name+'" for="'+t.name+'"><span class="category">'+t.name+'</span></label></div>')
+        document.querySelector(".loc").innerHTML +='<div class="catbox"><input type="checkbox" class="catinput" id="'+t.name+'" name="cat"><label class="catname" id="'+t.name+'" for="'+t.name+'"><span class="category">'+t.name+'</span></label></div>';
       }
     }
 
@@ -382,7 +384,7 @@
       for(var i=start;i<start+5;i++)
       {
         var t = x[i];
-        $(".companywrapper").append('<div class="companybox" id="'+t.id+'"><div class="compimg"><img src="'+t.company_logo_url+'" alt="logo"></div><div class="jobdet"><h4 class="compname">'+t.company_name+'</h4><p class="comppos">'+t.title+'</p><div class="jobtype">'+t.job_type+'</div></div><div class="jobpostdet"><i class="fas fa-globe-americas"></i> <span class="jobloc">'+t.candidate_required_location+'</span></div></div>')
+        document.querySelector(".companywrapper").innerHTML +='<div class="companybox" id="'+t.id+'"><div class="compimg"><img src="'+t.company_logo_url+'" alt="logo"></div><div class="jobdet"><h4 class="compname">'+t.company_name+'</h4><p class="comppos">'+t.title+'</p><div class="jobtype">'+t.job_type+'</div></div><div class="jobpostdet"><i class="fas fa-globe-americas"></i> <span class="jobloc">'+t.candidate_required_location+'</span></div></div>';
       }
     }
 
@@ -392,11 +394,11 @@
       pagesize = Math.ceil(m.length/5);
       for(var i=1;i<=pagesize;i++)
       {
-        $(".nowrapper").append('<div class="'+i+' nobox"><p>'+i+'</p></div>');
+        document.querySelector(".nowrapper").innerHTML +='<div class="'+i+' nobox"><p>'+i+'</p></div>';
       }
       $("."+1).addClass("selected");
-      $(".leftarrowbox").addClass("disabled");
-      $(".rightarrowbox").addClass("active");
+      leftarrow.classList.add("disabled");
+      rightarrow.classList.add("active");
     }
 
     //when click on page number
@@ -444,13 +446,13 @@
     function checkleft(t) {
       if(t>1)
       {
-        $(".leftarrowbox").removeClass("disabled");
-        $(".leftarrowbox").addClass("active");
+        leftarrow.classList.remove("disabled");
+        leftarrow.classList.add("active");
       }
       else
       {
-        $(".leftarrowbox").addClass("disabled");
-        $(".leftarrowbox").removeClass("active");
+        leftarrow.classList.add("disabled");
+        leftarrow.classList.remove("active");
       }
     }
 
@@ -458,13 +460,13 @@
     function checkright(t) {
       if(t<pagesize)
       {
-        $(".rightarrowbox").removeClass("disabled");
-        $(".rightarrowbox").addClass("active");
+        rightarrow.classList.remove("disabled");
+        rightarrow.classList.add("active");
       }
       else
       {
-        $(".rightarrowbox").addClass("disabled");
-        $(".rightarrowbox").removeClass("active");
+        rightarrow.classList.add("disabled");
+        rightarrow.classList.remove("active");
       }
     }
 
